@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM_OVERRIDE // GODDESS DAHLIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="crt-overlay"></div>
+    
+    <audio id="bg-audio" loop>
+        <source src="assets/audiomass-output.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="intro-screen" class="fullscreen-layer active">
+        <div class="terminal-box">
+            <h1 class="glitch-text" data-text="GODDESS_DAHLIA.exe">GODDESS_DAHLIA.exe</h1>
+            <p>> SYSTEM STATUS: VULNERABLE</p>
+            <p>> AUDIO OVERRIDE: REQUIRED</p>
+            <p class="blink">> Are you ready to surrender control? [Y/N]</p>
+            <button id="start-btn" class="tech-btn">[ INITIATE SEQUENCE ]</button>
+        </div>
+    </div>
+
+    <div id="hypno-container" class="fullscreen-layer">
+        <canvas id="hypno-canvas"></canvas>
+        <div id="hex-rain"></div>
+        
+        <!-- Media Overlay Ora Inserito Dietro UI ma Sopra Spirale -->
+        <div id="media-overlay" class="fullscreen-layer">
+            <img id="media-img" src="" alt="Neural Visual" style="display:none;">
+            <video id="media-video" src="" loop playsinline style="display:none;"></video>
+        </div>
+        
+        <div id="subliminal-text" class="subliminal-layer glitch-text" data-text=""></div>
+
+        <div id="tech-menu" class="terminal-box">
+            <div class="menu-header">>> AVAILABLE DIRECTIVES</div>
+            <button class="menu-btn" data-action="show_image">[ ACCESS image_db ]</button>
+            <button class="menu-btn" data-action="show_video">[ STREAM neural_link ]</button>
+        </div>
+
+        <div class="progress-container">
+            <p id="trance-status">> SYSTEM CORRUPTION LEVEL...</p>
+            <div class="progress-bar-bg">
+                <div id="progress-bar-fill"></div>
+            </div>
+            <p class="instruction-text blink">> HOLD CLICK OR INTERACT WITH MENU TO INCREASE CORRUPTION</p>
+        </div>
+    </div>
+
+    <!-- Climax / Finale Screen -->
+    <div id="finale-screen" class="fullscreen-layer">
+        <div class="terminal-box finale-box" id="level1-box">
+            <h1 class="glow-text-intense neon-purple">SYSTEM COMPROMISED</h1>
+            <h2 class="glow-text-cyan">> YOUR WILL IS MINE.</h2>
+            <p class="typing-text">> Awaiting financial tribute ($20) to restore functions...</p>
+            <a href="https://throne.com/" id="throne-link" class="tech-btn tribute-button" target="_blank" rel="noopener noreferrer">[ SEND TRIBUTE ]</a>
+            
+            <div class="unlock-section">
+                <p class="small-text blink">> ENTER UNLOCK CODE FOR LEVEL 2</p>
+                <input type="text" id="secret-code-input" class="tech-input" placeholder="CODE..." autocomplete="off">
+                <button id="unlock-btn" class="tech-btn small-btn">[ UNLOCK ]</button>
+                <p id="error-msg" style="color:var(--accent-red); margin-top:5px; opacity:0; transition: opacity 0.3s;">> ACCESS DENIED</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

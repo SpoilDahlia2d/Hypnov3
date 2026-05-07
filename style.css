@@ -1,0 +1,104 @@
+:root {
+    --bg-color: #020005;
+    --text-color: #00f3ff;
+    --accent-purple: #bd00ff;
+    --accent-red: #ff003c;
+    --font-heading: 'Orbitron', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-drag: none; }
+body, html { width: 100%; height: 100%; background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-mono); overflow: hidden; }
+
+.crt-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 4px, 3px 100%; z-index: 100; pointer-events: none; opacity: 0.8; }
+
+.fullscreen-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 1.5s ease; z-index: 1; }
+.fullscreen-layer.active { opacity: 1; pointer-events: all; z-index: 10; }
+
+.terminal-box { background: rgba(2, 0, 5, 0.85); border: 1px solid var(--text-color); box-shadow: 0 0 15px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.1); padding: 30px; max-width: 600px; width: 90%; text-align: left; position: relative; backdrop-filter: blur(5px); }
+.terminal-box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--text-color); box-shadow: 0 0 10px var(--text-color); }
+.terminal-box p { font-size: 1.1rem; margin-bottom: 10px; text-shadow: 0 0 5px var(--text-color); }
+
+.blink { animation: blinker 1s linear infinite; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+.glitch-text { font-family: var(--font-heading); font-size: 2.5rem; color: var(--accent-purple); text-shadow: 2px 2px 0px var(--text-color), -2px -2px 0px var(--accent-red); margin-bottom: 20px; position: relative; display: inline-block; text-transform: uppercase; }
+
+.tech-btn, .menu-btn { display: block; width: 100%; margin-top: 20px; padding: 15px; font-family: var(--font-mono); font-size: 1.2rem; color: var(--bg-color); background: var(--text-color); border: none; cursor: pointer; transition: all 0.2s; text-transform: uppercase; text-align: center; text-decoration: none; box-shadow: 0 0 15px rgba(0, 243, 255, 0.5); }
+.tech-btn:hover, .menu-btn:hover { background: #fff; box-shadow: 0 0 25px #fff; }
+
+.tribute-button { background: var(--accent-purple); color: #fff; box-shadow: 0 0 20px var(--accent-purple); font-weight: bold; font-size: 1.5rem; }
+.tribute-button:hover { background: #fff; color: var(--accent-purple); box-shadow: 0 0 30px #fff, 0 0 10px var(--accent-purple); }
+
+/* Inputs */
+.tech-input { width: 100%; margin-top: 10px; padding: 10px; font-family: var(--font-mono); font-size: 1.2rem; color: var(--text-color); background: transparent; border: 1px solid var(--text-color); outline: none; text-align: center; text-transform: uppercase; user-select: auto; }
+.tech-input:focus { box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.3); }
+.unlock-section { margin-top: 30px; border-top: 1px dashed var(--accent-purple); padding-top: 20px; }
+.small-btn { padding: 10px; font-size: 1rem; margin-top: 10px; background: transparent; color: var(--accent-purple); border: 1px solid var(--accent-purple); box-shadow: none; }
+.small-btn:hover { background: var(--accent-purple); color: #fff; }
+.small-text { font-size: 0.9rem !important; color: #aaa; margin-top: 10px; }
+
+/* Canvas & Background */
+#hypno-container { background-color: transparent; }
+canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+#hex-rain { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; font-family: var(--font-mono); color: rgba(189, 0, 255, 0.15); font-size: 14px; overflow: hidden; }
+
+/* Tech Menu */
+#tech-menu { position: absolute; top: 20px; right: 20px; width: 300px; z-index: 20; padding: 20px; }
+.menu-header { color: var(--accent-purple); margin-bottom: 15px; border-bottom: 1px dashed var(--accent-purple); padding-bottom: 5px; font-weight: bold; }
+.menu-btn { background: transparent; color: var(--text-color); border: 1px solid var(--text-color); margin-top: 10px; padding: 10px; font-size: 1rem; box-shadow: none; }
+.menu-btn:hover { background: var(--text-color); color: #000; }
+
+/* Media Overlay - Immagini/Video sulla spirale */
+#media-overlay { 
+    z-index: 3; /* Sopra spirale (1) e hex-rain (2), ma sotto subliminali (15) e menù (20) */
+    background: transparent; 
+    pointer-events: none; /* NON blocca i click o i tap sulla spirale! */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-in-out;
+}
+#media-overlay.active { opacity: 1; }
+#media-img, #media-video { 
+    width: 100vw; 
+    height: 100vh; 
+    object-fit: contain; 
+    opacity: 0.75; /* Lievemente trasparente per far intravedere la spirale sotto */
+    pointer-events: none;
+    animation: pulseMedia 4s ease-in-out infinite alternate;
+}
+@keyframes pulseMedia {
+    from { transform: scale(1.0); opacity: 0.7; filter: contrast(1.2) brightness(1.1); }
+    to { transform: scale(1.05); opacity: 0.9; filter: contrast(1.5) brightness(1.3); }
+}
+
+
+/* Subliminals */
+.subliminal-layer { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 6rem; z-index: 15; opacity: 0; pointer-events: none; text-align: center; width: 100%; }
+
+/* Progress */
+.progress-container { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; z-index: 20; background: rgba(0,0,0,0.8); padding: 15px; border: 1px solid var(--accent-purple); backdrop-filter: blur(5px); transition: all 1s ease;}
+.progress-bar-bg { width: 100%; height: 10px; background-color: rgba(255, 255, 255, 0.1); border: 1px solid var(--text-color); margin: 10px 0; }
+#progress-bar-fill { height: 100%; width: 0%; background-color: var(--accent-purple); box-shadow: 0 0 15px var(--accent-purple); transition: width 0.1s linear; }
+.instruction-text { font-size: 0.8rem; color: #666; text-align: center; }
+
+/* Finale */
+.finale-box { text-align: center; border-color: var(--accent-purple); box-shadow: 0 0 30px rgba(189, 0, 255, 0.4); }
+.neon-purple { color: var(--accent-purple); text-shadow: 0 0 20px var(--accent-purple); font-size: 3rem;}
+.glow-text-cyan { color: var(--text-color); text-shadow: 0 0 15px var(--text-color); margin-bottom: 20px; font-family: var(--font-heading); font-size: 2rem; }
+
+/* Level 2 Chaos Classes */
+body.level-2 { --bg-color: #050000; --text-color: #ffaa00; /* Gold */ --accent-purple: #ff0000; /* Blood Red */ }
+body.level-2 .crt-overlay { opacity: 1; filter: sepia(1) hue-rotate(-50deg) saturate(3); }
+body.level-2 #hex-rain { color: rgba(255, 0, 0, 0.3); }
+
+/* Mobile */
+@media (max-width: 768px) {
+    #tech-menu { top: auto; bottom: 120px; left: 50%; transform: translateX(-50%); right: auto; width: 95%; max-width: 400px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; padding: 10px; background: rgba(2, 0, 5, 0.8); }
+    .menu-header { width: 100%; text-align: center; font-size: 0.9rem; margin-bottom: 5px; border-bottom: none;}
+    .menu-btn { width: 48%; font-size: 0.75rem; padding: 8px; margin-top: 5px; word-break: break-all;}
+    .subliminal-layer { font-size: 3rem; }
+    .neon-purple { font-size: 2rem; }
+    .progress-container { bottom: 10px; padding: 10px; width: 95%; }
+}
